@@ -51,6 +51,25 @@ async def load_cogs():
                 print(f'[エラー] {filename} の読み込みに失敗しました: {e}')
                 print(f"Traceback: {e.__traceback__}")
 
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    # UptimeRobotがアクセスしてきたときに、この文字列を返す
+    return "I'm alive!"
+
+def run_flask():
+    # Renderが指定するPORTでサーバーを起動
+    port = int(os.environ.get('PORT', 10000))
+    app.run(host='0.0.0.0', port=port)
+
+def start_server_thread():
+    # Flaskサーバーを別スレッドで起動する
+    # (これにより、botの処理とWebサーバーの処理が同時に動きます)
+    t = Thread(target=run_flask)
+    t.daemon = True
+    t.start()
+
 
 # --- ボットの管理用コマンド ---
 # 開発中にコードを修正した際、ボットを再起動せずにCogsをリロードできる
@@ -75,10 +94,13 @@ async def main():
         await load_cogs()
         await bot.start(TOKEN)
 
+start_server_thread()
+
 # ボットの実行
 if __name__ == '__main__':
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
         print("\nボットを停止します。")
+
 
