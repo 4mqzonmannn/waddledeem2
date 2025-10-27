@@ -12,7 +12,6 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 if TOKEN is None:
     print("エラー: DISCORD_BOT_TOKENが.envファイルに設定されていません。")
-    print("README.mdの手順に従って.envファイルを作成してください。")
     exit()
 
 # ボットのインテントを設定
