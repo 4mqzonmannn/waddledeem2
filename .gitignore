@@ -1,7 +1,6 @@
-# Python
-__pycache__/
-*.pyc
-
-# Environment
-.env
 venv/
+pycache/
+*.pyc
+.env
+temp_audio/
+.DS_Store
