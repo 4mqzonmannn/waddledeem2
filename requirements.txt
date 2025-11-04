@@ -7,4 +7,3 @@ pydub
 librosa
 numpy
 soundfile
-Flask
